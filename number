@@ -1,0 +1,87 @@
+import java.util.Scanner;
+import java.util.Random;
+import java.util.*;
+
+public class Number_Game
+{
+    public static void main(String args[])
+    {
+        Scanner in =new Scanner(System.in);
+        Random random=new Random();
+
+        int lowerBound=1;
+        int upperBound=100;
+        int maxAttempts=10; //maximum no of attempts
+        int roundsplayed=0; //Initialize the no off rounds played
+        int score=0;      //Initialize the player's
+
+     System.out.println("***WELCOME TO THE NUMBER GUESSING GAME***");
+
+     do{
+        //Generate a random target numbet within the specified range
+        int targetNumber=random.nextInt(upperBound-lowerBound+1) + lowerBound;
+        System.out.println("\nRound "+(roundsplayed+1));
+        System.out.println("I Have Generated a number between "+ lowerBound+ " to " +upperBound+ " Try to Guess it!");
+
+        int attempts=0; //initialize the no of attempts for this round
+        boolean guessedcorrectly=false; //flag to track if the correct number was guessed
+
+
+        while(attempts < maxAttempts)
+        {
+            System.out.println("Enter your guess: ");
+            int userGuess=in.nextInt(); // get the user's guess
+            attempts++;           //increament the attempt count
+
+
+         if(userGuess < targetNumber)
+         {
+          System.out.println("Your Guess is too LOW. ");
+         }
+         else if(userGuess > targetNumber)
+         {
+            System.out.println("Your Guess is too HIGH. ");
+         }
+         else
+         {
+            System.out.println("CONGO! You Guessed the correct number ");
+            guessedcorrectly = true;//set flag to indicate that we have found our answer
+            score+= maxAttempts-attempts+1; //Upadate thescore based on attempts
+            break;
+         }
+        }
+
+     //if the user didn't guess the number correctly,display the correct number
+
+     if(!guessedcorrectly)
+     {
+        System.out.println("Sorry you have reached your Limits of Attempts. The correct Number was: "+ targetNumber);
+     }
+
+     System.out.println("Current score :"+score);
+
+
+     //Asking the user if they want to play another round
+
+     System.out.println("Doy you want to play another Round? (YES/NO); ");
+String Decision=in.next().toUpperCase();
+
+if(Decision.equals("YES"))
+{
+    roundsplayed++; // Increment rounds if the player wants to play again 
+}
+
+else{
+    break; //Exit the loop if the player doesn't wants to play again
+}
+     }
+
+     while(true);
+
+     //Display final score after the Game is over
+     System.out.println("GAME OVER, Your Final Score is:  "+score);
+       in.close(); //close scanner to release resourses
+    }
+}
+
+       
